@@ -1,0 +1,40 @@
+version: "3"
+services:
+    php:
+
+        build:
+            context: ./php/docker
+            args:
+                VSC_USERNAME: ${VSC_USERNAME}
+                VSC_USER_EMAIL: ${VSC_USER_EMAIL}
+
+        user: ${VSC_USERNAME}
+        volumes:
+            - ..:/var/www/html
+
+        container_name: ${CONTAINER_NAME}
+        networks:
+            - database_app
+
+    nginx:
+        image: "nginx:1.17"
+        environment:
+            - NGINX_PORT=80
+        ports:
+            - "80:80"
+        volumes:
+            - ./nginx/conf.d:/etc/nginx/conf.d
+            - ./nginx/log:/var/log/nginx
+            - ..:/var/www/html
+        networks:
+            - database_app
+
+    node:
+        image: "node:12.13"
+        stdin_open: true
+        volumes:
+            - ..:/var/www/html
+
+networks:
+    database_app:
+        external: true
