@@ -70,6 +70,10 @@ RUN echo "export USER_BIN=/home/${VSC_USERNAME}/bin" >> /home/${VSC_USERNAME}/.e
 RUN echo "export PATH=\$USER_BIN:\$PATH " >> /home/${VSC_USERNAME}/.envrc
 RUN sudo -u ${VSC_USERNAME} echo ". ~/.envrc" >>  /home/${VSC_USERNAME}/.zshrc
 
+# 配置 zsh
+RUN sudo -u ${VSC_USERNAME} git clone https://github.com/ohmyzsh/ohmyzsh.git /home/${VSC_USERNAME}/.oh-my-zsh && \
+    sudo -u ${VSC_USERNAME} cp /home/${VSC_USERNAME}/.oh-my-zsh/templates/zshrc.zsh-template /home/${VSC_USERNAME}/.zshrc
+
 # PHP xdebug 配置
 RUN echo "xdebug.remote_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
