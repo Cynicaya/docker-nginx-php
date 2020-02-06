@@ -10,7 +10,7 @@ services:
 
         user: ${VSC_USERNAME}
         volumes:
-            - ..:/var/www/html
+            - ../src:/var/www/html
 
         container_name: ${CONTAINER_NAME}
         networks:
@@ -25,7 +25,7 @@ services:
         volumes:
             - ./nginx/conf.d:/etc/nginx/conf.d
             - ./nginx/log:/var/log/nginx
-            - ..:/var/www/html
+            - ../src:/var/www/html
         networks:
             - database_app
 
@@ -33,7 +33,7 @@ services:
         image: "node:12.13"
         stdin_open: true
         volumes:
-            - ..:/var/www/html
+            - ../src:/var/www/html
 
 networks:
     database_app:
