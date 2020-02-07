@@ -51,7 +51,7 @@ RUN pecl install redis xdebug \
 	&& docker-php-ext-enable redis xdebug
 
 RUN	docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-	&& docker-php-ext-install -j$(nproc) gd mysqli pdo_mysql bcmath zip opcache sockets \
+	&& docker-php-ext-install -j$(nproc) gd mysqli pdo_mysql bcmath zip opcache sockets pcntl \
     && echo "opcache.enable_cli=1" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 
 # Composer
