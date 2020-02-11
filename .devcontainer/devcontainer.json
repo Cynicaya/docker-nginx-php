@@ -1,5 +1,5 @@
 {
-	"name": "LaraBBS_2",
+	"name": "project-name",
 	//"dockerFile": "Dockerfile",
     "dockerComposeFile": "./docker-compose.yml",
     
@@ -26,7 +26,7 @@
 	// Add the IDs of extensions you want installed when the container is created in the array below.
 	"extensions": [
 		"felixfbecker.php-debug",
-		"felixfbecker.php-intelephense",
-		"felixfbecker.php-docblocker"
+		"bmewburn.vscode-intelephense-client",
+		"neilbrayfield.php-docblocker"
 	]
 }
