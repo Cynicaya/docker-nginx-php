@@ -7,7 +7,7 @@
 
 首先需要安装 Docker 如果是 windows 系统的话则是安装 docker for windows。
 其次 vs Code 需要安装 remote-containers 插件。    
-然后将本项目克隆至本地然后将开发项目代码放在 src 目录下，并将本项目下 .env.example 中的环境变量配置复制到 .env 文件中并配置值。
+将本项目克隆至本地然后将开发项目代码放在 src 目录下，并将本项目下 .env.example 中的环境变量配置复制到 .env 文件中并配置值。
 
 VSC_USERNAME #php环境运行用户和Git用户名
 VSC_USER_EMAIL #Git的Email
