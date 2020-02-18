@@ -9,9 +9,9 @@
 其次 vs Code 需要安装 remote-containers 插件。    
 将本项目克隆至本地然后将开发项目代码放在 src 目录下，并将本项目下 .env.example 中的环境变量配置复制到 .env 文件中并配置值。
 
-VSC_USERNAME #php环境运行用户和Git用户名
-VSC_USER_EMAIL #Git的Email
-CONTAINER_NAME #php实例名称
+VSC_USERNAME #php环境运行用户和Git用户名  
+VSC_USER_EMAIL #Git的Email  
+CONTAINER_NAME #php实例名称  
 
 ### 开始配置
 
@@ -24,8 +24,8 @@ fastcgi_pass 配置为 你环境变量 CONTAINER_NAME 的值加 php 端口。
 
 >注意：CONTAINER_NAME 的值不能与现有的 docker 实例名称重复。
 
-设置好以上的配置后就可以开始启动容器了。
-首先打开 vs Code，然后如下操作。
+设置好以上的配置后就可以开始启动容器了。  
+首先打开 vs Code，然后如下操作。  
 
 ![](./image/image-1.jpg)
 
