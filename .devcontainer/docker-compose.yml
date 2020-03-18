@@ -17,7 +17,7 @@ services:
             - database_app
 
     nginx:
-        image: "nginx:1.17"
+        image: "nginx"
         environment:
             - NGINX_PORT=80
         ports:
@@ -30,7 +30,7 @@ services:
             - database_app
 
     node:
-        image: "node:12.13"
+        image: "node"
         stdin_open: true
         volumes:
             - ../src:/var/www/html
