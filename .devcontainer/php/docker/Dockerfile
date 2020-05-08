@@ -46,9 +46,9 @@ RUN groupadd --gid $VSC_USER_GID $VSC_USERNAME \
     && echo $VSC_USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$VSC_USERNAME \
     && chmod 0440 /etc/sudoers.d/$VSC_USERNAME
 
-# Install redis mysqli pdo_mysql bcmath gd zip opcache sockets swoole
-RUN pecl install redis swoole \
-	&& docker-php-ext-enable redis swoole
+# Install redis mysqli pdo_mysql bcmath gd zip opcache sockets xdebug
+RUN pecl install redis xdebug \
+	&& docker-php-ext-enable redis xdebug
 
 RUN	docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
 	&& docker-php-ext-install -j$(nproc) gd mysqli pdo_mysql bcmath zip opcache sockets pcntl \
@@ -73,6 +73,16 @@ RUN sudo -u ${VSC_USERNAME} git clone https://github.com/ohmyzsh/ohmyzsh.git /ho
 RUN echo "export USER_BIN=/home/${VSC_USERNAME}/bin" >> /home/${VSC_USERNAME}/.envrc
 RUN echo "export PATH=\$USER_BIN:\$PATH " >> /home/${VSC_USERNAME}/.envrc
 RUN sudo -u ${VSC_USERNAME} echo ". ~/.envrc" >>  /home/${VSC_USERNAME}/.zshrc
+
+# PHP xdebug 配置
+RUN echo "xdebug.remote_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.remote_autostart=on" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.file_link_format = vscode://file/%f:%l" \
+    >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo \
+    "xdebug.file_link_format = 'vscode://file/%f:%l&/path/to/app/in/docker/>/path/to/app/on/host/'" \
+    >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 # 清理环境
 RUN apt-get autoremove -y \
