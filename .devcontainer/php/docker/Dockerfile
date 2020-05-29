@@ -15,7 +15,7 @@ RUN sed -ri 's/https?:\/\/.*\.debian\.org/https:\/\/mirrors.tuna.tsinghua.edu.cn
     && apt-get -y install git procps iproute2 lsb-release curl wget \
         vim zsh zip libzip-dev mlocate lsof net-tools libfreetype6-dev \
         libjpeg62-turbo-dev libpng-dev make autoconf gcc g++ libpcre3-dev \
-        libpcre3 openssl libssl-dev sudo \
+        libpcre3 openssl libssl-dev sudo jq \
     && apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
@@ -51,4 +51,4 @@ RUN sudo -u ${VSC_USERNAME} mkdir -p /home/${VSC_USERNAME}/bin \
 # 环境变量配置
 RUN echo "export USER_BIN=/home/${VSC_USERNAME}/bin" >> /home/${VSC_USERNAME}/.envrc \
     && echo "export PATH=\$USER_BIN:\$PATH " >> /home/${VSC_USERNAME}/.envrc \
-    && sudo -u ${VSC_USERNAME} echo ". ~/.envrc" >>  /home/${VSC_USERNAME}/.zshrc
+    && echo -e "\n. ~/.envrc" | sudo tee -a /home/${VSC_USERNAME}/.zshrc

@@ -17,7 +17,7 @@ CONTAINER_NAME #php实例名称
 
 配置好环境变量后，接下来配置 .devcontainer 的名称标识，修改 .devcontainer/devcontainer.json 文件中 name 配置项即可。    
 
-nginx 配置，项目的 nginx 配置文件在 .devcontainer/nginx/conf.d/ 目录下的 default.conf 文件中。    
+nginx 配置，项目的 nginx 配置文件在 nginx/conf.d/ 目录下的 default.conf 文件中。    
 default.conf 文件可根据自己需求进行更改，默认更改 root 和 fastcgi_pass 配置项即可。    
 root 配置到你项目需要解析的目录下。    
 fastcgi_pass 配置为 你环境变量 CONTAINER_NAME 的值加 php 端口。   

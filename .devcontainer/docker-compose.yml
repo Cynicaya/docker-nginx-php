@@ -23,8 +23,8 @@ services:
         ports:
             - "80:80"
         volumes:
-            - ./nginx/conf.d:/etc/nginx/conf.d
-            - ./nginx/log:/var/log/nginx
+            - ../nginx/conf.d:/etc/nginx/conf.d
+            - ../nginx/log:/var/log/nginx
             - ../src:/var/www/html
         networks:
             - database_app
