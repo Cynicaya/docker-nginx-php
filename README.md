@@ -1,7 +1,7 @@
 ## 简介
 
 本项目结合 VS Code 的 Remote - Containers 插件搭建 nginx、PHP 开发环境，使各个项目的 php 环境彻底隔离，每个项目可单独配置 php 和 nginx 版本。  
-在搭建本项目前请先搭建 database 数据库项目并配置好 database_app 网络。
+在搭建本项目前请先搭建 [database](https://github.com/xueyong-q/docker-database) 数据库项目并配置好 database_app 网络。
 
 ## 环境搭建
 
