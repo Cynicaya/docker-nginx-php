@@ -7,22 +7,23 @@
 
 首先需要安装 Docker 如果是 windows 系统的话则是安装 docker for windows。
 其次 vs Code 需要安装 remote-containers 插件。    
-将本项目克隆至本地然后将开发项目代码放在 src 目录下，并将本项目下 .env.example 中的环境变量配置复制到 .env 文件中并配置值。
+将本项目克隆至本地，并将本项目下 .env.example 中的环境变量配置复制到 .env 文件中并配置值。  
+项目的代码存放在 src 目录下。
 
-VSC_USERNAME #php环境运行用户和Git用户名  
-VSC_USER_EMAIL #Git的Email  
-CONTAINER_NAME #php实例名称  
+```
+VSC_USERNAME     # php环境运行用户和Git用户名  
+VSC_USER_EMAIL   # Git的Email  
+CONTAINER_NAME   # php实例名称, 注意该名称不能与其他容器名重复并且该名称不能有特殊符号或全角符号  
+```
 
 ### 开始配置
 
-配置好环境变量后，接下来配置 .devcontainer 的名称标识，修改 .devcontainer/devcontainer.json 文件中 name 配置项即可。    
+配置好环境变量后，接下来配置 .devcontainer 的名称标识，修改 `.devcontainer/devcontainer.json` 文件中 name 配置项即可。    
 
 nginx 配置，项目的 nginx 配置文件在 nginx/conf.d/ 目录下的 default.conf 文件中。    
 default.conf 文件可根据自己需求进行更改，默认更改 root 和 fastcgi_pass 配置项即可。    
 root 配置到你项目需要解析的目录下。    
 fastcgi_pass 配置为 你环境变量 CONTAINER_NAME 的值加 php 端口。   
-
->注意：CONTAINER_NAME 的值不能与现有的 docker 实例名称重复。
 
 设置好以上的配置后就可以开始启动容器了。  
 首先打开 vs Code，然后如下操作。  
