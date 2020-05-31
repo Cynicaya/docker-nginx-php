@@ -29,6 +29,7 @@
 		"bmewburn.vscode-intelephense-client",
 		"neilbrayfield.php-docblocker",
 		"eamodio.gitlens",
-		"yzhang.markdown-all-in-one"
+		"yzhang.markdown-all-in-one",
+		"mtxr.sqltools"
 	]
 }
