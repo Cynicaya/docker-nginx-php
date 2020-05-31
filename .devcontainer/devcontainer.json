@@ -30,6 +30,9 @@
 		"neilbrayfield.php-docblocker",
 		"eamodio.gitlens",
 		"yzhang.markdown-all-in-one",
-		"mtxr.sqltools"
+		"mtxr.sqltools",
+		"mtxr.sqltools-driver-mysql",
+		"mtxr.sqltools-driver-pg",
+		"mtxr.sqltools-driver-sqlite"
 	]
 }
