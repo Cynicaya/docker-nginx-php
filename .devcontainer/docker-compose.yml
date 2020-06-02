@@ -3,7 +3,7 @@ services:
     php:
 
         build:
-            context: ./php/docker
+            context: ./php
             args:
                 VSC_USERNAME: ${VSC_USERNAME}
                 VSC_USER_EMAIL: ${VSC_USER_EMAIL}
