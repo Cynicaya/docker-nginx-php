@@ -1,36 +1,45 @@
 ## 简介
 
-本项目结合 VS Code 的 Remote - Containers 插件搭建 nginx、PHP 开发环境，使各个项目的 php 环境彻底隔离，每个项目可单独配置 php 和 nginx 版本。  
-在搭建本项目前请先搭建 [database](https://github.com/xueyong-q/docker-database) 数据库项目并配置好 database_app 网络。
+本项目结合 VSCode 的 Remote - Containers 插件搭建 PHP 开发环境，安装应用有 PHP、Nginx、Node 和 yarn 默认安装版本如下。  
+
+| 应用  | 版本                     |
+| ----- | ------------------------ |
+| PHP   | 7.3                      |
+| Nginx | 1.18(默认安装最新稳定版) |
+| Node  | 14.x                     |
+| Yarn  | 1.22(默认安装最新稳定版) |
 
 ## 环境搭建
 
-首先需要安装 Docker 如果是 windows 系统的话则是安装 docker for windows。
-其次 vs Code 需要安装 remote-containers 插件。    
-将本项目克隆至本地，并将本项目下 .env.example 中的环境变量配置复制到 .env 文件中并配置值。  
-项目的代码存放在 src 目录下。
+首先需要安装 Docker 如果是 windows 系统的话则是安装 docker for windows。  
+其次 VSCode 需要安装 remote-containers 插件。  
 
-```
-VSC_USERNAME     # php环境运行用户和Git用户名  
-VSC_USER_EMAIL   # Git的Email  
-CONTAINER_NAME   # php实例名称, 注意该名称不能与其他容器名重复并且该名称不能有特殊符号或全角符号  
-```
+### 开始使用
 
-### 开始配置
+注意：该项目容器默认会添加到 database_app 网络，如果 database_app 网络不存在则会无法构建，解决方法如：  
+1. 删除 `.devcontainer\devcontainer.json` 配置文件中 `runArgs` 配置项的 "--network=database_app" 即可。  
+2. 添加 database_app 网络，添加命令 `docker network create database_app`。另可以部署一个数据库 [docker-database 项目](https://github.com/xueyong-q/docker-database.git)。  
 
-配置好环境变量后，接下来配置 .devcontainer 的名称标识，修改 `.devcontainer/devcontainer.json` 文件中 name 配置项即可。    
+nginx 配置，项目配置文件在 `.devcontainer/nginx/conf.d/` 目录下的 default.conf 文件中。nginx 的日志文件则在 `.devcontainer/nginx/log` 目录中。   
 
-nginx 配置，项目的 nginx 配置文件在 nginx/conf.d/ 目录下的 default.conf 文件中。    
-default.conf 文件可根据自己需求进行更改，默认更改 root 和 fastcgi_pass 配置项即可。    
-root 配置到你项目需要解析的目录下。    
-fastcgi_pass 配置为 你环境变量 CONTAINER_NAME 的值加 php 端口。   
+首先使用 VSCode 打开本项目，操作如下。  
+![](.devcontainer/image/image-1.jpg)
 
-设置好以上的配置后就可以开始启动容器了。  
-首先打开 vs Code，然后如下操作。  
+然后选择在容器中重新打开。  
+![](.devcontainer/image/image-2.jpg)
 
-![](./image/image-1.jpg)
+最后等待项目启动。  
 
-然后选择本项目。  
-![](./image/image-2.jpg)
+## VSCode扩展
 
-最后等待项目启动。
+| 扩展名称                            | 描述 |
+| ----------------------------------- | ---- |
+| PHP Intelephense                    |      |
+| PHP DocBlocker                      |      |
+| PHP Debug                           |      |
+| Markdown All in One                 |      |
+| GitLens — Git supercharged          |      |
+| SQLTools                            |      |
+| SQLTools MySQL/MariaDB              |      |
+| SQLTools PostgreSQL/Redshift Driver |      |
+| SQLTools SQLite                     |      |
