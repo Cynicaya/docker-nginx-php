@@ -19,8 +19,8 @@
 	"appPort": [
 		"80:80"
 	],
-	// start nginx
-	"postStartCommand": "sudo nginx",
+	// start nginx and php-fpm
+	"postStartCommand": "sudo nginx && sudo php-fpm &",
 	// Uncomment the next line to run commands after the container is created.
 	// "postCreateCommand": "php -v",
 	// Comment out if you want to use root
