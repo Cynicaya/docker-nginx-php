@@ -33,9 +33,7 @@
 		"eamodio.gitlens",
 		"yzhang.markdown-all-in-one",
 		"mtxr.sqltools",
-		"mtxr.sqltools-driver-mysql",
-		"mtxr.sqltools-driver-pg",
-		"mtxr.sqltools-driver-sqlite"
+		"mtxr.sqltools-driver-mysql"
 	],
 	// add database_app network
 	"runArgs": [

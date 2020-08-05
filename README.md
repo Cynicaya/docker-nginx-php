@@ -42,5 +42,3 @@ nginx 配置，项目配置文件在 `.devcontainer/nginx/conf.d/` 目录下的 
 | GitLens — Git supercharged          |      |
 | SQLTools                            |      |
 | SQLTools MySQL/MariaDB              |      |
-| SQLTools PostgreSQL/Redshift Driver |      |
-| SQLTools SQLite                     |      |
