@@ -27,8 +27,8 @@ RUN sed -ri 's/https?:\/\/.*\.debian\.org/https:\/\/mirrors.tuna.tsinghua.edu.cn
     # 处理用户权限
     && groupadd --gid $USER_GID $USERNAME \
     && useradd -s /bin/zsh --uid $USER_UID --gid $USER_GID -m $USERNAME \
-    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME \
+    && echo "${USERNAME} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${USERNAME} \
+    && chmod 0440 /etc/sudoers.d/${USERNAME} \
     && chown -R ${USERNAME}:${USERNAME} /home/${USERNAME} \
     #
     # Composer
