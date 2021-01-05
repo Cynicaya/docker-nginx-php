@@ -1,13 +1,16 @@
-FROM php:7.3-fpm
+ARG PHP_VERSION
+FROM php:${PHP_VERSION}
 
-ENV LANG C.UTF-8
-ARG USERNAME=vscode
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
+ARG USERNAME
+ARG USER_UID
+ARG USER_GID=${USER_UID}
+ARG LANG
+ENV LANG=${LANG}
 
 # 扩展配置
 COPY conf.d/ $PHP_INI_DIR/conf.d/
 COPY ohmyzsh.sh /tmp/
+COPY installExt.sh /tmp/
 
 # 构建PHP
 RUN sed -ri 's/https?:\/\/.*\.debian\.org/https:\/\/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list \
@@ -18,11 +21,12 @@ RUN sed -ri 's/https?:\/\/.*\.debian\.org/https:\/\/mirrors.tuna.tsinghua.edu.cn
         libjpeg62-turbo-dev libpng-dev make autoconf gcc g++ libpcre3-dev \
         libpcre3 openssl libssl-dev sudo jq gnupg2 ca-certificates \
     #
-    # Install xdebug redis mysqli pdo_mysql bcmath gd zip opcache sockets
-    && pecl install redis xdebug \
-	&& docker-php-ext-enable redis xdebug \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-	&& docker-php-ext-install -j$(nproc) gd mysqli pdo_mysql bcmath zip opcache sockets pcntl \
+    # add permissions
+    && chmod +x /tmp/ohmyzsh.sh /tmp/installExt.sh \
+    #
+    # 安装扩展
+    && /tmp/installExt.sh \
+    && rm -f /tmp/installExt.sh \
     #
     # 处理用户权限
     && groupadd --gid $USER_GID $USERNAME \
@@ -45,11 +49,8 @@ RUN sed -ri 's/https?:\/\/.*\.debian\.org/https:\/\/mirrors.tuna.tsinghua.edu.cn
     #
     # 修改 PHP 运行用户
     && sed -ri "s/user.*=.*www-data/user = ${USERNAME}/g" /usr/local/etc/php-fpm.d/www.conf \
-    && sed -ri "s/group.*=.*www-data/group = ${USERNAME}/g" /usr/local/etc/php-fpm.d/www.conf \
-    #
-    # add permissions
-    && chmod +x /tmp/ohmyzsh.sh
-
+    && sed -ri "s/group.*=.*www-data/group = ${USERNAME}/g" /usr/local/etc/php-fpm.d/www.conf
+    
 # Install Nginx、Nodejs And yarn
 RUN echo "deb http://nginx.org/packages/debian `lsb_release -cs` nginx" | tee /etc/apt/sources.list.d/nginx.list \
     && curl -fsSL https://nginx.org/keys/nginx_signing.key | apt-key add - \
