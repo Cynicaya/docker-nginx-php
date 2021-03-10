@@ -30,10 +30,7 @@
 	"appPort": [
 		"80:80"
 	],
-	// install ohmyzsh
-	"postCreateCommand": "/tmp/ohmyzsh.sh &",
-	// start nginx and php-fpm
-	"postStartCommand": "sudo nginx && sudo php-fpm &",
+	"postStartCommand": "sudo nginx && ohmyzsh.sh",
 	// 在容器中运行的用户
 	"remoteUser": "vscode",
 	// 安装 vscode 扩展
@@ -43,8 +40,6 @@
 		"neilbrayfield.php-docblocker",
 		"eamodio.gitlens",
 		"yzhang.markdown-all-in-one",
-		"mtxr.sqltools",
-		"mtxr.sqltools-driver-mysql",
 		"Gruntfuggly.todo-tree"
 	],
 	// 将镜像添加到 database_app 网络

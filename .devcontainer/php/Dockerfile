@@ -9,8 +9,8 @@ ENV LANG=${LANG}
 
 # 扩展配置
 COPY conf.d/ $PHP_INI_DIR/conf.d/
-COPY ohmyzsh.sh /tmp/
-COPY installExt.sh /tmp/
+COPY ohmyzsh.sh /usr/bin/
+COPY installExt.sh /
 
 # 构建PHP
 RUN sed -ri 's/https?:\/\/.*\.debian\.org/https:\/\/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list \
@@ -22,11 +22,11 @@ RUN sed -ri 's/https?:\/\/.*\.debian\.org/https:\/\/mirrors.tuna.tsinghua.edu.cn
         libpcre3 openssl libssl-dev sudo jq gnupg2 ca-certificates \
     #
     # add permissions
-    && chmod +x /tmp/ohmyzsh.sh /tmp/installExt.sh \
+    && chmod +x /usr/bin/ohmyzsh.sh /installExt.sh \
     #
     # 安装扩展
-    && /tmp/installExt.sh \
-    && rm -f /tmp/installExt.sh \
+    && /installExt.sh \
+    && rm -f /installExt.sh \
     #
     # 处理用户权限
     && groupadd --gid $USER_GID $USERNAME \
@@ -67,3 +67,5 @@ RUN echo "deb http://nginx.org/packages/debian `lsb_release -cs` nginx" | tee /e
     && apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
+
+CMD ["php-fpm"]
