@@ -19,7 +19,7 @@ RUN sed -ri 's/https?:\/\/.*\.debian\.org/https:\/\/mirrors.tuna.tsinghua.edu.cn
     && apt-get -y install git procps iproute2 lsb-release curl wget \
         vim zsh zip libzip-dev mlocate lsof net-tools libfreetype6-dev \
         libjpeg62-turbo-dev libpng-dev make autoconf gcc g++ libpcre3-dev \
-        libpcre3 openssl libssl-dev sudo jq gnupg2 ca-certificates \
+        libpcre3 openssl libssl-dev sudo jq gnupg2 \
     #
     # add permissions
     && chmod +x /usr/bin/ohmyzsh.sh /installExt.sh \
