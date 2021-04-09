@@ -10,6 +10,7 @@ ENV LANG=${LANG}
 # 扩展配置
 COPY conf.d/ $PHP_INI_DIR/conf.d/
 COPY ohmyzsh.sh /usr/bin/
+COPY startService.sh /usr/bin/
 COPY installExt.sh /
 
 # 构建PHP
@@ -19,10 +20,10 @@ RUN sed -ri 's/https?:\/\/.*\.debian\.org/https:\/\/mirrors.tuna.tsinghua.edu.cn
     && apt-get -y install git procps iproute2 lsb-release curl wget \
         vim zsh zip libzip-dev mlocate lsof net-tools libfreetype6-dev \
         libjpeg62-turbo-dev libpng-dev make autoconf gcc g++ libpcre3-dev \
-        libpcre3 openssl libssl-dev sudo jq gnupg2 \
+        libpcre3 openssl libssl-dev sudo jq gnupg2 ca-certificates \
     #
     # add permissions
-    && chmod +x /usr/bin/ohmyzsh.sh /installExt.sh \
+    && chmod +x /usr/bin/ohmyzsh.sh /installExt.sh /usr/bin/startService.sh \
     #
     # 安装扩展
     && /installExt.sh \
@@ -46,6 +47,7 @@ RUN sed -ri 's/https?:\/\/.*\.debian\.org/https:\/\/mirrors.tuna.tsinghua.edu.cn
     && echo "export PATH=/home/${USERNAME}/bin:\$PATH " >> /home/${USERNAME}/.envrc \
     && sudo -u ${USERNAME} touch /home/${USERNAME}/.zshrc \
     && echo ". ~/.envrc" > /home/${USERNAME}/.zshrc \
+    && echo "startService.sh && ohmyzsh.sh" >> /home/${USERNAME}/.zshrc \
     #
     # 修改 PHP 运行用户
     && sed -ri "s/user.*=.*www-data/user = ${USERNAME}/g" /usr/local/etc/php-fpm.d/www.conf \
@@ -67,5 +69,3 @@ RUN echo "deb http://nginx.org/packages/debian `lsb_release -cs` nginx" | tee /e
     && apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
-
-CMD ["php-fpm"]

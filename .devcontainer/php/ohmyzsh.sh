@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # install ohmyzsh
 if [ ! -e ~/ohmyzsh.lock ]

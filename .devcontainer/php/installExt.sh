@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 pecl install redis xdebug
 docker-php-ext-enable redis xdebug
