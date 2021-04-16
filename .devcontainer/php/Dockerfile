@@ -38,7 +38,7 @@ RUN sed -ri 's/https?:\/\/.*\.debian\.org/https:\/\/mirrors.tuna.tsinghua.edu.cn
     #
     # Composer
     && sudo -u ${USERNAME} mkdir -p /home/${USERNAME}/bin \
-    && sudo -u ${USERNAME} curl -o /home/${USERNAME}/bin/composer https://mirrors.aliyun.com/composer/composer.phar \
+    && sudo -u ${USERNAME} curl -o /home/${USERNAME}/bin/composer https://getcomposer.org/composer-1.phar \
     && chmod +x /home/${USERNAME}/bin/composer \
     && sudo -u ${USERNAME} /home/${USERNAME}/bin/composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
     #
