@@ -28,7 +28,9 @@ nginx 配置，项目配置文件在 `.devcontainer/nginx/conf.d/` 目录下的 
 然后选择在容器中重新打开。  
 ![](.devcontainer/image/image-2.jpg)
 
-最后等待项目启动，项目启动后会将容器中的 80 端口映射到主机的 80 端口。  
+最后等待项目启动，项目启动后会将容器中的 80 端口映射到主机的 80 端口。
+>注意：项目启动后 nginx 和 php 未自动启动，需要在 VSCode 中使用快捷键 Ctrl + &#96; 打开终端以启动 nginx、 php 和安装 zsh。 
+
 如要修改端口映射，可以修改 `.devcontainer\devcontainer.json` 配置文件中 `appPort` 配置项。  
 构建 Dockerfile 时的环境变量则在 `build.args` 中修改。  
 
