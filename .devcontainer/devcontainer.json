@@ -1,49 +1,52 @@
-{
-	"name": "php",
-	"dockerFile": "php/Dockerfile",
-	// "dockerComposeFile": "./docker-compose.yml",
-	"settings": {
-		"terminal.integrated.shell.linux": "/bin/zsh"
-	},
-	// 将项目挂载到容器中
-	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace/php,type=bind,consistency=cached",
-	// 设置工作目录
-	"workspaceFolder": "/workspace/php",
-	// 挂载 nginx 配置文件到容器中
-	"mounts": [
-		"source=${localWorkspaceFolder}/.devcontainer/nginx/conf.d,target=/etc/nginx/conf.d,type=bind,consistency=cached",
-		"source=${localWorkspaceFolder}/.devcontainer/nginx/log,target=/var/log/nginx,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.ssh,target=/home/${localEnv:USER}/.ssh,type=bind,consistency=cached"
-	],
-	"build": {
-		// 构建 Dockerfile 时的环境变量
-		"args": {
-			// php 镜像版本
-			"PHP_VERSION": "7.4-fpm",
-			// 在容器中运行的用户
-			"USERNAME": "${localEnv:USER}",
-			// 运行用户的 UID
-			"USER_UID": "1000",
-			"LANG": "C.UTF-8"
-		}
-	},
-	// 映射端口 <主机端口>:<容器端口>
-	"appPort": [
-		"80:80"
-	],
-	// 在容器中运行的用户
-	"remoteUser": "${localEnv:USER}",
-	// 安装 vscode 扩展
-	"extensions": [
-		"felixfbecker.php-debug",
-		"bmewburn.vscode-intelephense-client",
-		"neilbrayfield.php-docblocker",
-		"eamodio.gitlens",
-		"yzhang.markdown-all-in-one",
-		"Gruntfuggly.todo-tree"
-	],
-	// 将镜像添加到 database_app 网络
-	"runArgs": [
-		"--network=database_app"
-	]
+ {
+    "name": "php",
+    "dockerFile": "php/Dockerfile",
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    // 将项目挂载到容器中
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace/php,type=bind,consistency=cached",
+    // 设置工作目录
+    "workspaceFolder": "/workspace/php",
+    // 挂载 nginx 配置文件到容器中
+    "mounts": [
+        "source=${localWorkspaceFolder}/.devcontainer/nginx/Adefault.conf,target=/etc/nginx/conf.d/Adefault.conf,type=bind,consistency=cached",
+        "source=${localWorkspaceFolder}/.devcontainer/nginx/log,target=/var/log/nginx,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.ssh,target=/home/${localEnv:USER}/.ssh,type=bind,consistency=cached"
+    ],
+    "build": {
+        // 构建 Dockerfile 时的环境变量
+        "args": {
+            // php 镜像版本
+            "PHP_VERSION": "7.4-fpm",
+            // 在容器中运行的用户
+            "USERNAME": "${localEnv:USER}",
+            // 运行用户的 UID
+            "USER_UID": "1000",
+            "LANG": "C.UTF-8"
+        }
+    },
+    // 映射端口 <主机端口>:<容器端口>
+    "appPort": [
+        "80:81"
+    ],
+    // 在容器中运行的用户
+    "remoteUser": "${localEnv:USER}",
+    // 安装Nginx
+    "postCreateCommand": [
+        "docker-app",
+        "-i",
+        "nginx"
+    ],
+    // 启动php-fpm、nginx
+    "postStartCommand": "sudo nginx && php-fpm",
+    // 安装 vscode 扩展
+    "extensions": [
+        "felixfbecker.php-debug",
+        "bmewburn.vscode-intelephense-client"
+    ],
+    // 将镜像添加到 database_app 网络
+    "runArgs": [
+        "--network=database_app"
+    ]
 }
